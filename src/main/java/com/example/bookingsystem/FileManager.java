@@ -1,5 +1,29 @@
 package com.example.bookingsystem;
 
-public class FileManager {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
+public class FileManager {
+    private String filePath;
+
+    public FileManager(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public List<Booking> loadBookings() {
+        List<Booking> bookings = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3) {
+                    bookings.add(new Booking(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        return bookings;
+    }
 }
