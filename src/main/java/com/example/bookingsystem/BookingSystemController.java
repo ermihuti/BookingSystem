@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BookingGUI {
+public class BookingSystemController {
     @FXML private TextField nameField, dateField, detailsField;
     @FXML private ListView<String> bookingListView;
 
