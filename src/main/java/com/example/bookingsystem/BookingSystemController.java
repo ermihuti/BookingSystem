@@ -34,4 +34,22 @@ public class BookingSystemController {
             showAlert("Please fill in all fields.");
         }
     }
+
+    @FXML
+    private void removeBooking() {
+        String selected = bookingListView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            String name = selected.split(",")[0];
+            bookingLogic.removeBooking(name);
+            updateBookingList();
+        } else {
+            showAlert("Please select a booking to remove.");
+        }
+    }
+
+    @FXML
+    private void sortBookings() {
+        bookingLogic.sortByDate();
+        updateBookingList();
+    }
 }
