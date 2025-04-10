@@ -26,4 +26,15 @@ public class FileManager {
         }
         return bookings;
     }
+
+    public void saveBookings(List<Booking> bookings) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Booking booking : bookings) {
+                writer.write(booking.getName() + "," + booking.getDate() + "," + booking.getDetails());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
 }
