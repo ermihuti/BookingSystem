@@ -18,4 +18,22 @@ public class BookingLogic {
         bookings.add(booking);
         fileManager.saveBookings(bookings);
     }
+
+    public void removeBooking(String id) {
+        bookings.removeIf(b -> b.getId().equals(id));
+        fileManager.saveBookings(bookings);
+    }
+
+    public List<Booking> getBookings() {
+        return new ArrayList<>(bookings);
+    }
+
+    public void sortByDate() {
+        bookings.sort((b1, b2) -> {
+            LocalDate date1 = LocalDate.parse(b1.getDate(), FORMATTER);
+            LocalDate date2 = LocalDate.parse(b2.getDate(), FORMATTER);
+            return date1.compareTo(date2);
+        });
+        fileManager.saveBookings(bookings);
+    }
 }
