@@ -52,4 +52,20 @@ public class BookingSystemController {
         bookingLogic.sortByDate();
         updateBookingList();
     }
+
+    private void updateBookingList() {
+        bookingList.clear();
+        for (Booking b : bookingLogic.getBookings()) {
+            bookingList.add(b.getName() + ", " + b.getDate() + ", " + b.getDetails());
+        }
+        bookingListView.setItems(bookingList);
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Booking System");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }
