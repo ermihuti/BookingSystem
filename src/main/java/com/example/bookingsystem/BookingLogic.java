@@ -36,4 +36,18 @@ public class BookingLogic {
         });
         fileManager.saveBookings(bookings);
     }
+
+    public void saveBookings(List<Booking> bookings) {
+        fileManager.saveBookings(bookings);
+    }
+
+    public List<Booking> searchBooking(String name) {
+        List<Booking> foundBookings = new ArrayList<>();
+        for (Booking booking : bookings) {
+            if (booking.getName().equalsIgnoreCase(name)) {
+                foundBookings.add(booking);
+            }
+        }
+        return foundBookings;
+    }
 }
