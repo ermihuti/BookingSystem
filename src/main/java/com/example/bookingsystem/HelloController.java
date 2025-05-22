@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Controller class for managing user interactions with the booking system UI.
+ */
 public class HelloController {
     private BookingLogic bookingLogic;
     private List<Booking> allBookings = new ArrayList<>();
@@ -35,6 +38,9 @@ public class HelloController {
     @FXML
     private Label statusLabel;
 
+    /**
+     * Initializes the controller by loading bookings from file and setting the UI state.
+     */
     public void initialize() {
         FileManager fileManager = new FileManager("bookings.txt");
         bookingLogic = new BookingLogic(fileManager);
@@ -43,6 +49,9 @@ public class HelloController {
         clearSearchButton.setVisible(false);
     }
 
+    /**
+     * Adds a new booking based on input fields.
+     */
     @FXML
     private void addBooking() {
         String name = nameField.getText();
@@ -73,6 +82,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Removes the selected booking from the list.
+     */
     @FXML
     private void removeBooking() {
         String selected = bookingListView.getSelectionModel().getSelectedItem();
@@ -88,6 +100,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Sorts bookings (or search results) by date in ascending order.
+     */
     @FXML
     private void sortBookings() {
         List<Booking> target = searchResults.isEmpty() ? allBookings : searchResults;
@@ -108,6 +123,9 @@ public class HelloController {
         statusLabel.setText("Sorted by date.");
     }
 
+    /**
+     * Searches for bookings by name and updates the list with results.
+     */
     @FXML
     private void searchBooking() {
         String name = nameField.getText();
@@ -130,6 +148,9 @@ public class HelloController {
         }
     }
 
+    /**
+     * Clears the current search and displays all bookings.
+     */
     @FXML
     private void clearSearch() {
         searchResults.clear();
@@ -138,6 +159,11 @@ public class HelloController {
         statusLabel.setText("Search cleared.");
     }
 
+    /**
+     * Updates the booking list view with the given list of bookings.
+     *
+     * @param list the list of bookings to display
+     */
     private void updateBookingList(List<Booking> list) {
         bookingListView.getItems().clear();
         for (Booking b : list) {
