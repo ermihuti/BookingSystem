@@ -5,21 +5,39 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Controller class for managing the booking system UI and logic.
+ * It handles adding, removing, and sorting bookings, and updates the booking list view.
+ */
 public class BookingSystemController {
+    /** TextField for entering the name of the booking. */
     @FXML private TextField nameField, dateField, detailsField;
+
+    /** ListView for displaying bookings. */
     @FXML private ListView<String> bookingListView;
 
+    /** Logic handler for booking operations. */
     private BookingLogic bookingLogic;
+
+    /** Observable list for binding bookings to the ListView. */
     private ObservableList<String> bookingList = FXCollections.observableArrayList();
 
+    /** File path for storing booking data. */
     private static final String FILE_PATH = "bookings.txt";
 
+    /**
+     * Initializes the controller by setting up the booking logic and loading existing bookings.
+     */
     public void initialize() {
         FileManager fileManager = new FileManager(FILE_PATH);
         bookingLogic = new BookingLogic(fileManager);
         updateBookingList();
     }
 
+    /**
+     * Adds a new booking using the input fields.
+     * If any field is empty, shows an alert.
+     */
     @FXML
     private void addBooking() {
         String name = nameField.getText();
@@ -35,6 +53,10 @@ public class BookingSystemController {
         }
     }
 
+    /**
+     * Removes the selected booking from the list.
+     * If no booking is selected, shows an alert.
+     */
     @FXML
     private void removeBooking() {
         String selected = bookingListView.getSelectionModel().getSelectedItem();
@@ -47,12 +69,18 @@ public class BookingSystemController {
         }
     }
 
+    /**
+     * Sorts the bookings by date and updates the list.
+     */
     @FXML
     private void sortBookings() {
         bookingLogic.sortByDate();
         updateBookingList();
     }
 
+    /**
+     * Updates the ListView with the current bookings from the logic.
+     */
     private void updateBookingList() {
         bookingList.clear();
         for (Booking b : bookingLogic.getBookings()) {
@@ -61,6 +89,11 @@ public class BookingSystemController {
         bookingListView.setItems(bookingList);
     }
 
+    /**
+     * Displays an informational alert with the given message.
+     *
+     * @param message The message to display.
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Booking System");
